@@ -1,6 +1,6 @@
 fastapi==0.136.1
 uvicorn==0.46.0
+python-multipart==0.0.27
 pillow==12.2.0
 rembg==2.0.75
-python-multipart==0.0.27
 onnxruntime==1.25.1
