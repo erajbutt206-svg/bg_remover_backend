@@ -18,7 +18,7 @@ models = {}
 @app.on_event("startup")
 async def load_models():
     print("Loading silueta model (lightweight)...")
-    models['silueta'] = new_session("silueta")  # ~44 MB only!
+    models['silueta'] = new_session("silueta")
     print("✅ Model loaded!")
 
 @app.get("/")
@@ -30,6 +30,10 @@ def home():
         "description": "Lightweight, fast processing"
     }
 
+@app.get("/health")
+def health():
+    return {"status": "healthy"}
+
 @app.post("/remove-bg-ensemble")
 async def remove_bg_ensemble(file: UploadFile = File(...)):
     image_bytes = await file.read()
@@ -38,5 +42,6 @@ async def remove_bg_ensemble(file: UploadFile = File(...)):
 
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.environ.get("PORT", 8000))
+    # Railway PORT environment variable use karo
+    port = int(os.environ.get("PORT", 8080))
     uvicorn.run(app, host="0.0.0.0", port=port)
